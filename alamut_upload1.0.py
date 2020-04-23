@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np 
 
 # create a dataframe from the data (after converting it to a csv file in excel)
-df = pd.read_csv('test.csv')
+df = pd.read_csv('FH_variants.csv', encoding='ISO-8859-1')
 df = df.dropna(how = 'all')
 
 # create empty dataframe for alamut ready variants
@@ -25,7 +25,7 @@ for index, row in df.iterrows():
                 # removing new lines from the comment column
                 string = str(row['comment']).replace('\n', ' ').replace('\r', '')
                 # Combining evidence column with the comment column to add to the general Alamut comment column (separated with a : as cannot do a new line separation)
-                Comment = str(row['criteria']) + ' : ' + string + ' : Seen :' + str(row['seen'])  
+                Comment = str(row['criteria']) + ' : ' + string + ' Date Assigned:' + str(row['date_assigned']) +  ' Date Checked:' + str(row['date_checked']) +  ' Date Reviewed:' + str(row['date_reviewed ']) + ' Seen :' + str(row['seen'])   
                 # Append this record to the cNomen dataframe 
                 cNomen_df = cNomen_df.append({'Gene': Gene, 'Transcript': Transcript, 'Variant' : cNomen, 'Pathogenic': Pathogenic, 'Patient ID' : PatientID, 'Comment' : Comment}, ignore_index=True)
 
@@ -43,3 +43,4 @@ LDLRAP1_df.to_csv('FH_LDLRAP1.txt', sep='\t', index = False)
 
 PCSK9_df = cNomen_df.loc[(cNomen_df['Gene'] == 'PCSK9')]
 PCSK9_df.to_csv('FH_PCSK9.txt', sep='\t', index = False)
+
