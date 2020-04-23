@@ -19,13 +19,19 @@ for index, row in df.iterrows():
                 PatientID = row['GOSH ID']
                 Gene = row['gene']
                 if str(row['acmg_classification']) == '1' or str(row['acmg_classification']) == '2' or str(row['acmg_classification']) == '3' or str(row['acmg_classification']) == '4' or str(row['acmg_classification']) == '5':
-                        Pathogenic = 'Class ' + str(row['acmg_classification'])
+                        Pathogenic = 'Class ' + str(row['acmg_classification']) #removing new lines
                 else:
                         Pathogenic = 'Class 3'
-                # removing new lines from the comment column
-                string = str(row['comment']).replace('\n', ' ').replace('\r', '')
+                if row['comment'] == None:
+                        string = ' '
+                else:
+                        string = str(row['comment']).replace('\n', ' ').replace('\r', '')
+                if row['criteria'] == None:
+                        criteria = ' '
+                else: 
+                        criteria = str(row['criteria'])
                 # Combining evidence column with the comment column to add to the general Alamut comment column (separated with a : as cannot do a new line separation)
-                Comment = str(row['criteria']) + ' : ' + string + ' Date Assigned:' + str(row['date_assigned']) +  ' Date Checked:' + str(row['date_checked']) +  ' Date Reviewed:' + str(row['date_reviewed ']) + ' Seen :' + str(row['seen'])   
+                Comment = criteria + string + ' Date Assigned:' + str(row['date_assigned']) +  ' Date Checked:' + str(row['date_checked']) +  ' Date Reviewed:' + str(row['date_reviewed ']) + ' Seen :' + str(row['seen'])  
                 # Append this record to the cNomen dataframe 
                 cNomen_df = cNomen_df.append({'Gene': Gene, 'Transcript': Transcript, 'Variant' : cNomen, 'Pathogenic': Pathogenic, 'Patient ID' : PatientID, 'Comment' : Comment}, ignore_index=True)
 
