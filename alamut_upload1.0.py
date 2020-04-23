@@ -19,9 +19,9 @@ for index, row in df.iterrows():
                 PatientID = row['GOSH ID']
                 Gene = row['gene']
                 if row['acmg_classification'] == '1' or row['acmg_classification'] == '2' or row['acmg_classification'] == '3' or row['acmg_classification'] == '4' or row['acmg_classification'] == '5':
-                        Pathogenic = int(row['acmg_classification'])
+                        Pathogenic = 'Class ' + str(row['acmg_classification'])
                 else:
-                        Pathogenic = int(3)
+                        Pathogenic = 'Class 3'
                 # removing new lines from the comment column
                 string = str(row['comment']).replace('\n', ' ').replace('\r', '')
                 # Combining evidence column with the comment column to add to the general Alamut comment column (separated with a : as cannot do a new line separation)
