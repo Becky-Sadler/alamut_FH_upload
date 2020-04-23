@@ -18,7 +18,7 @@ for index, row in df.iterrows():
                 Transcript, cNomen = row['acmg_cdna'].split(':')
                 PatientID = row['GOSH ID']
                 Gene = row['gene']
-                if row['acmg_classification'] == '1' or row['acmg_classification'] == '2' or row['acmg_classification'] == '3' or row['acmg_classification'] == '4' or row['acmg_classification'] == '5':
+                if str(row['acmg_classification']) == '1' or str(row['acmg_classification']) == '2' or str(row['acmg_classification']) == '3' or str(row['acmg_classification']) == '4' or str(row['acmg_classification']) == '5':
                         Pathogenic = 'Class ' + str(row['acmg_classification'])
                 else:
                         Pathogenic = 'Class 3'
